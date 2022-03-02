@@ -48,13 +48,15 @@
 
       #messages {
         list-style-type: none;
-        margin: 0;
+        margin: 1rem;
         padding: 0;
         
       }
       #messages > li {
         padding: 0.5rem 1rem;
         font-size: 3vh;
+        border-radius: 5px;
+        margin: 2px;
       }
       #messages > li:nth-child(odd) {
         background: #efefef;
@@ -99,10 +101,13 @@
         var item = document.createElement("li");
         item.textContent = msg;
         if (usId == myId) {
-          item.style.backgroundColor = "white";
+          item.style.backgroundColor = "green";
+          item.style.clear = "both";
           item.style.float = "right";
+
         } else {
           item.style.backgroundColor = "gray";
+          item.style.clear = "both";
           item.style.float = "left";
         }
         messages.appendChild(item);
