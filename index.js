@@ -3,12 +3,12 @@
 const app = require("express")();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 const port = process.env.PORT || 3000;
 
 var id = "room";
 app.get("/", (req, res) => {
-  res.redirect('/chat/'+uuidv4())
+  res.redirect("/chat/" + uuidv4());
   // res.sendFile(__dirname + "/index.html");
 });
 
@@ -20,7 +20,12 @@ app.get("/chat/:id", function (req, res) {
 io.on("connection", async (socket) => {
   const userId = socket.id;
 
-  socket.join(id);
+  // socket.join(id);
+
+  socket.on("joinRoom", (socket_id) => {
+    socket.join(id);
+    socket.to(id).emit("agentMessage", "A new person has connected 🤗");
+  });
 
   console.log(socket.rooms);
 
@@ -29,9 +34,7 @@ io.on("connection", async (socket) => {
   });
 
   io.to(id).emit("hi");
-
 });
-
 
 http.listen(port, () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);

@@ -50,7 +50,6 @@
         list-style-type: none;
         margin: 1rem;
         padding: 0;
-        
       }
       #messages > li {
         padding: 0.5rem 1rem;
@@ -92,9 +91,25 @@
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         if (input.value) {
-          socket.emit("chat message", input.value, myId);
-          input.value = "";
+          if (socket.connected) {
+            socket.emit("chat message", input.value, myId);
+            input.value = "";
+          }
         }
+      });
+
+      socket.on("connect", function () {
+        socket.emit("joinRoom", socket.id);
+      });
+
+      socket.on("agentMessage", function (msg) {
+        var item = document.createElement("li");
+        item.textContent = msg;
+        item.style.backgroundColor = "red";
+        item.style.clear = "both";
+        item.style.float = "left";
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
       });
 
       socket.on("chat message", function (msg, usId) {
@@ -104,7 +119,6 @@
           item.style.backgroundColor = "green";
           item.style.clear = "both";
           item.style.float = "right";
-
         } else {
           item.style.backgroundColor = "gray";
           item.style.clear = "both";
