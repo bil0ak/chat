@@ -6,14 +6,15 @@ const io = require("socket.io")(http);
 const { v4: uuidv4 } = require("uuid");
 const port = process.env.PORT || 3000;
 
+const path_name = __dirname + "res"
 var id = "room";
 app.get("/", (req, res) => {
   res.redirect("/chat/" + uuidv4());
-  // res.sendFile(__dirname + "/index.html");
+  // res.sendFile(path_name + "/index.html");
 });
 
 app.get("/chat/:id", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(path_name + "/index.html");
   id = req.params.id;
 });
 
