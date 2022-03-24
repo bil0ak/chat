@@ -12,5 +12,16 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bil0ak/chat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bil0ak/chat/issues"
+  },
+  "homepage": "https://github.com/bil0ak/chat#readme"
 }
