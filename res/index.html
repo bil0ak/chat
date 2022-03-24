@@ -105,9 +105,14 @@
       var form = document.getElementById("form");
       var input = document.getElementById("input");
 
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const user_name = urlParams.get('username')
+
+
       //Join room
       socket.on("connect", function () {
-        socket.emit("joinRoom", socket.id);
+        socket.emit("joinRoom", socket.id, user_name);
       });
 
       //send chat message
@@ -115,7 +120,7 @@
         e.preventDefault();
         if (input.value) {
           if (socket.connected) {
-            socket.emit("chat message", input.value, myId);
+            socket.emit("chat message", input.value, myId, user_name);
             input.value = "";
           }
         }
@@ -133,9 +138,14 @@
       });
 
       //Show chat messgae
-      socket.on("chat message", function (msg, usId) {
+      socket.on("chat message", function (msg, usId, userName) {
         var item = document.createElement("li");
-        item.textContent = msg;
+        var idev = document.createElement("div");
+        idev.innerHTML = `
+        <p>${userName}</p>
+        <p>${msg}</p>
+        `
+        item.appendChild(idev);
         if (usId == myId) {
           item.style.backgroundColor = "green";
           item.style.clear = "both";

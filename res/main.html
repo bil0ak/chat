@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="main.js"></script>
     <title>Bil Chat 💭</title>
 </head>
 <body>
+    <label for="">Please input your name:</label>
+    <textarea name="" id="username" cols="30" rows="1"></textarea>
+    <br>
     <button id="create_room">Create Room</button>
     <br>
     <textarea name="" id="roomId" cols="30" rows="1"></textarea>
-    <button id="join_room">Join Room</button>
+    <button id="join_room" onclick="join()">Join Room</button>
+
+    <script src="/res/main.js"></script>
+
 </body>
 </html>
