@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 
 const { ExpressPeerServer } = require("peer");
 
-const server = app.listen(3001);
+const server = app.listen(443);
 
 const peerServer = ExpressPeerServer(server, {
   debug: true,
@@ -70,6 +70,7 @@ io.on("connection", async (socket) => {
     });
   });
 });
+
 
 http.listen(port, () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
