@@ -11,7 +11,7 @@ function create_room(){
 }
 
 function join_room() {
-  let userName = document.getElementById("username");
+  let userName = document.getElementById("username").value;
   let roomId = document.getElementById("roomId").value;
   location.href = "/chat/" + roomId + "?username=" + userName;
 }
