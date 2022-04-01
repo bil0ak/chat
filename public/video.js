@@ -4,7 +4,6 @@ var peers = {};
 
 var peer = new Peer({
   host: location.hostname,
-  port: 3001,
   path: "/peerjs",
   config: {
     iceServers: [
