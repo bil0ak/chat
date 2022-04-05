@@ -1,8 +1,6 @@
 var socket = io();
 
 var peer = new Peer({
-  host: location.hostname,
-  path: "/peerjs",
   config: {
     iceServers: [
       { url: "stun:stun01.sipphone.com" },
