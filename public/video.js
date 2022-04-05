@@ -3,8 +3,6 @@ var socket = io();
 var peers = {};
 
 var peer = new Peer({
-  host: location.hostname,
-  path: "/peerjs",
   config: {
     iceServers: [
       { url: "stun:stun01.sipphone.com" },
@@ -56,17 +54,12 @@ navigator.mediaDevices
   })
   .then((stream) => {
     addVidStream(myVideo, stream);
-    console.log("a");
 
     peer.on("call", (call) => {
-      console.log("here5");
-
       call.answer(stream);
 
       const video = document.createElement("video");
       call.on("stream", (userVidStream) => {
-        console.log(video + "/n" + userVidStream);
-
         addVidStream(video, userVidStream);
       });
     });
@@ -93,15 +86,10 @@ peer.on("open", (id) => {
 });
 
 function connectToUser(userId, stream) {
-  console.log("here");
   const call = peer.call(userId, stream);
   const video = document.createElement("video");
-  console.log("here2");
 
   call.on("stream", function (remoteVidStream) {
-    console.log("here3");
-
-    console.log(video + "/n" + remoteVidStream);
     addVidStream(video, remoteVidStream);
   });
   call.on("close", () => {

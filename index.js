@@ -6,15 +6,15 @@ const io = require("socket.io")(http);
 const { v4: uuidv4 } = require("uuid");
 const port = process.env.PORT || 3000;
 
-const { ExpressPeerServer } = require("peer");
+// const { ExpressPeerServer } = require("peer");
 
-const server = app.listen(3001);
+// const server = app.listen(3001);
 
-const peerServer = ExpressPeerServer(server, {
-  debug: true,
-});
+// const peerServer = ExpressPeerServer(server, {
+//   debug: true,
+// });
 
-app.use("/peerjs", peerServer);
+// app.use("/peerjs", peerServer);
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
