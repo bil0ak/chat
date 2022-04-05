@@ -83,6 +83,10 @@ socket.on("left-call", (userId) => {
 //Join room
 peer.on("open", (id) => {
   socket.emit("joinCall", ROOM_ID, id);
+  
+    //Add the room Id to the page (make it easy to copy)
+    var room_id_txt = document.getElementById('room_id_txt')
+    room_id_txt.innerText = `ROOM ID: ${ROOM_ID}`;
 });
 
 function connectToUser(userId, stream) {

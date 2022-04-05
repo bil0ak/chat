@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <script>
-        const ROOM_ID = "<%= roomId %>";
-      </script>
-  
-      <script defer src="/socket.io/socket.io.js"></script>
-  
-      <script
-        defer
-        src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"
-      ></script>
-  
-      <script defer src="/peerjs"></script>
-  
-      <script defer src="/video.js"></script>
+      const ROOM_ID = "<%= roomId %>";
+    </script>
+
+    <script defer src="/socket.io/socket.io.js"></script>
+
+    <script
+      defer
+      src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"
+    ></script>
+
+    <script defer src="/peerjs"></script>
+
+    <script defer src="/video.js"></script>
 
     <title>Video Call 🎥</title>
 
@@ -37,6 +37,9 @@
     </style>
   </head>
   <body>
+    <span id="room_id_txt"></span>
+    <br />
+    
     <div id="vids"></div>
   </body>
 </html>
