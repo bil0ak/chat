@@ -9,23 +9,17 @@ const port = process.env.PORT || 3000;
 app.set("view engine", "ejs");
 app.enable("trust proxy");
 
-// To use without SSL (localhost only)
-// app.use(express.static("public"));
-
-// To use the app with SSL
-app.use(function (request, response) {
-  if (process.env.NODE_ENV != "development" && !request.secure) {
-    return response.redirect("https://" + request.headers.host + request.url);
-  } else {
-    app.use(express.static("public"));
-  }
-});
+app.use(express.static("public"));
 
 const path_name = __dirname + "/views";
 var id = "room";
 
 app.get("/", (req, res) => {
-  res.render("main");
+  if (process.env.NODE_ENV != "development" && !req.secure) {
+    res.redirect("https://" + req.headers.host + req.url);
+  } else {
+    res.render("main");
+  }
 });
 
 app.get("/chat/:id", function (req, res) {
