@@ -13,11 +13,11 @@ app.enable("trust proxy");
 // app.use(express.static("public"));
 
 // To use the app with SSL
-app.use(function (request, response, next) {
+app.use(function (request, response) {
   if (process.env.NODE_ENV != "development" && !request.secure) {
     return response.redirect("https://" + request.headers.host + request.url);
   } else {
-    next();
+    app.use(express.static("public"));
   }
 });
 
