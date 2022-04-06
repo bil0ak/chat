@@ -73,6 +73,10 @@ function videocall() {
 //Join room
 peer.on("open", (id) => {
   socket.emit("joinRoom", ROOM_ID, id, user_name);
+
+  //Add the room Id to the page (make it easy to copy)
+  var room_id_txt = document.getElementById('room_id_txt')
+  room_id_txt.innerText = `ROOM ID: ${ROOM_ID}`;
   myId = id;
 });
 

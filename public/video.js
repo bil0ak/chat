@@ -44,7 +44,8 @@ var peer = new Peer({
 });
 
 const vids = document.getElementById("vids");
-var myVideo = document.createElement("video");
+
+const myVideo = createVideoElement();
 myVideo.muted = true;
 
 navigator.mediaDevices
@@ -58,7 +59,8 @@ navigator.mediaDevices
     peer.on("call", (call) => {
       call.answer(stream);
 
-      const video = document.createElement("video");
+      const video = createVideoElement();
+
       call.on("stream", (userVidStream) => {
         addVidStream(video, userVidStream);
       });
@@ -69,7 +71,6 @@ navigator.mediaDevices
         console.log(userId);
 
         setTimeout(connectToUser, 3000, userId, stream);
-        // connectToUser(userId, stream);
       }
     });
   });
@@ -83,11 +84,16 @@ socket.on("left-call", (userId) => {
 //Join room
 peer.on("open", (id) => {
   socket.emit("joinCall", ROOM_ID, id);
+
+  //Add the room Id to the page (make it easy to copy)
+  var room_id_txt = document.getElementById("room_id_txt");
+  room_id_txt.innerText = `ROOM ID: ${ROOM_ID}`;
 });
 
 function connectToUser(userId, stream) {
   const call = peer.call(userId, stream);
-  const video = document.createElement("video");
+
+  const video = createVideoElement();
 
   call.on("stream", function (remoteVidStream) {
     addVidStream(video, remoteVidStream);
@@ -105,4 +111,12 @@ function addVidStream(video, stream) {
     video.play();
   });
   vids.appendChild(video);
+}
+
+function createVideoElement() {
+  const video = document.createElement("video");
+  video.setAttribute("autoplay", "autoplay");
+  video.playsInline = true;
+
+  return video;
 }
