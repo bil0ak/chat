@@ -117,7 +117,7 @@ function createVideoElement() {
   const video = document.createElement("video");
   video.setAttribute("autoplay", "autoplay");
   video.playsInline = true;
-  video.muted = false;
+  video.controls = true;
 
   return video;
 }
