@@ -46,6 +46,7 @@ var peer = new Peer({
 const vids = document.getElementById("vids");
 
 const myVideo = createVideoElement();
+myVideo.id = "my-video";
 myVideo.muted = true;
 
 navigator.mediaDevices
