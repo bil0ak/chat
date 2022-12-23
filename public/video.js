@@ -60,11 +60,13 @@ mute_btn.addEventListener("click", () => {
     !myVideo.srcObject.getAudioTracks()[0].enabled;
 
   if (myVideo.srcObject.getAudioTracks()[0].enabled) {
-    i.classList.remove("fa-microphone");
-    i.classList.add("fa-microphone-slash");
-  } else {
     i.classList.remove("fa-microphone-slash");
     i.classList.add("fa-microphone");
+    i.style.color = "";
+  } else {
+    i.classList.remove("fa-microphone");
+    i.classList.add("fa-microphone-slash");
+    i.style.color = "red";
   }
 });
 
@@ -74,11 +76,13 @@ disable_camera.addEventListener("click", () => {
     !myVideo.srcObject.getVideoTracks()[0].enabled;
 
   if (myVideo.srcObject.getVideoTracks()[0].enabled) {
-    i.classList.remove("fa-video");
-    i.classList.add("fa-video-slash");
-  } else {
     i.classList.remove("fa-video-slash");
     i.classList.add("fa-video");
+    i.style.color = "";
+  } else {
+    i.classList.remove("fa-video");
+    i.classList.add("fa-video-slash");
+    i.style.color = "red";
   }
 });
 
