@@ -43,11 +43,67 @@ var peer = new Peer({
   },
 });
 
+const myVidDiv = document.getElementById("my-vid");
 const vids = document.getElementById("vids");
+const enablePIP = document.getElementById("enable_picture_in_picture");
 
 const myVideo = createVideoElement();
 myVideo.id = "my-video";
 myVideo.muted = true;
+
+const mute_btn = document.getElementById("mute_btn");
+const disable_camera = document.getElementById("disable_camera");
+
+mute_btn.addEventListener("click", () => {
+  const i = mute_btn.getElementsByTagName("i")[0];
+  myVideo.srcObject.getAudioTracks()[0].enabled =
+    !myVideo.srcObject.getAudioTracks()[0].enabled;
+
+  if (myVideo.srcObject.getAudioTracks()[0].enabled) {
+    i.classList.remove("fa-microphone");
+    i.classList.add("fa-microphone-slash");
+  } else {
+    i.classList.remove("fa-microphone-slash");
+    i.classList.add("fa-microphone");
+  }
+});
+
+disable_camera.addEventListener("click", () => {
+  const i = disable_camera.getElementsByTagName("i")[0];
+  myVideo.srcObject.getVideoTracks()[0].enabled =
+    !myVideo.srcObject.getVideoTracks()[0].enabled;
+
+  if (myVideo.srcObject.getVideoTracks()[0].enabled) {
+    i.classList.remove("fa-video");
+    i.classList.add("fa-video-slash");
+  } else {
+    i.classList.remove("fa-video-slash");
+    i.classList.add("fa-video");
+  }
+});
+
+enablePIP.addEventListener("click", () => {
+  const videos = document.getElementById("vids").children;
+
+  let pip_enabled = document.pictureInPictureElement;
+  // check if there is a video in PIP
+  if (pip_enabled) {
+    // if there is a video in PIP, exit PIP
+    document.exitPictureInPicture();
+
+    enablePIP.style.display = "block";
+  } else {
+    if (videos.length > 1) {
+      // If there are more than 1 video, show the second one in PIP
+      videos[0].requestPictureInPicture();
+    } else {
+      // If there is only 1 video, show it in PIP
+      videos[0].requestPictureInPicture();
+    }
+
+    enablePIP.style.display = "block";
+  }
+});
 
 navigator.mediaDevices
   .getUserMedia({
@@ -55,7 +111,7 @@ navigator.mediaDevices
     audio: true,
   })
   .then((stream) => {
-    addVidStream(myVideo, stream);
+    addMyVidStream(myVideo, stream);
 
     peer.on("call", (call) => {
       call.answer(stream);
@@ -77,6 +133,7 @@ navigator.mediaDevices
   });
 
 socket.on("left-call", (userId) => {
+  console.log("left");
   if (peers[userId]) {
     peers[userId].close();
   }
@@ -106,6 +163,14 @@ function connectToUser(userId, stream) {
   peers[userId] = call;
 }
 
+function addMyVidStream(video, stream) {
+  video.srcObject = stream;
+  video.addEventListener("loadedmetadata", () => {
+    video.play();
+  });
+  myVidDiv.appendChild(video);
+}
+x;
 function addVidStream(video, stream) {
   video.srcObject = stream;
   video.addEventListener("loadedmetadata", () => {

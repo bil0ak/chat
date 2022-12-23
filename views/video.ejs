@@ -12,6 +12,10 @@
     <script defer src="/socket.io/socket.io.js"></script>
 
     <script src="https://unpkg.com/peerjs@1.4.5/dist/peerjs.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/8971101ecb.js"
+      crossorigin="anonymous"
+    ></script>
 
     <script defer src="/peerjs"></script>
 
@@ -36,11 +40,85 @@
         -webkit-transform: rotateY(180deg); /* Safari and Chrome */
         -moz-transform: rotateY(180deg); /* Firefox */
       }
+      #my-vid {
+        width: 300px;
+        height: fit-content;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+      }
+      #mute_btn {
+        width: fit-content;
+        height: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #disable_camera {
+        width: fit-content;
+        height: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      @media (max-width: 600px) {
+        #my-vid {
+          height: fit-content;
+          width: 50%;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          z-index: 1;
+        }
+        #vids {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, 100%);
+          grid-auto-rows: 100%;
+        }
+        #vids video {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+        #my-vid #controls {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+        }
+        #mute_btn {
+          width: fit-content;
+          height: fit-content;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 20px;
+        }
+        #disable_camera {
+          width: fit-content;
+          height: fit-content;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 20px;
+        }
+      }
     </style>
   </head>
   <body>
     <span id="room_id_txt"></span>
     <br />
+    <button id="enable_picture_in_picture">Enable Picture in Picture</button>
+
+    <div id="my-vid">
+      <div id="controls">
+        <button id="mute_btn">
+          <i class="fa fa-microphone-slash"></i>
+        </button>
+        <button id="disable_camera">
+          <i class="fa fa-video-slash"></i>
+        </button>
+      </div>
+    </div>
 
     <div id="vids"></div>
   </body>
